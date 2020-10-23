@@ -18,6 +18,19 @@ except VersionConflict:
     print("Error: version of setuptools is too old (<38.3)!")
     sys.exit(1)
 
+def get_requirements_from_files():
+    """
+    Collect all dependencies required to run the project from requirements files
+    :return: a list of required packages
+    """
+    with open('requirements.txt', 'r') as pypi_lines:
+        requirement_list = pypi_lines.readlines()
+
+    return [elt for elt in requirement_list]
+
 
 if __name__ == "__main__":
-    setup(use_pyscaffold=True)
+    setup(
+        use_pyscaffold=True,
+        install_requires=get_requirements_from_files()
+    )
